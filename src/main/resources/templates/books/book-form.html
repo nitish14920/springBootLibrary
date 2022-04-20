@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Game</title>
+
+    <style>
+    .error {
+        color: red;
+    }
+    </style>
+    </style>
+
+</head>
+
+<body>
+<div class="container " >
+    <h1 align="center">Book Form</h1>
+
+    <hr>
+
+    <br><br>
+
+    <p class="h4 mb-4">Add a New Book</p>
+
+    <form action="#" th:action="@{/books/save}" th:object="${book}" method="POST">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <input type="text" th:field="*{title}" class="form-control mb-4 col-4" placeholder="Book Title" />
+        <p th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}" />
+
+        <input type="text" th:field="*{author}" class="form-control mb-4 col-4" placeholder="Book Author" />
+        <p th:if="${#fields.hasErrors('author')}" th:errorclass="error" th:errors="*{author}" />
+
+        <button type="submit" class="btn btn-info col-2" >Save</button>
+
+    </form>
+
+    <br><br>
+
+    <a th:href="@{/students/list}" class="btn btn-dark btn-sm mb-3" >
+        Back to Student List
+    </a>
+</div>
+</body>
+
+</html>

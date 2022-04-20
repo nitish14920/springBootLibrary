@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Player</title>
+</head>
+
+<body>
+<div class="container" >
+    <h1 align="center">Student Form</h1>
+
+    <hr>
+
+    <br><br>
+
+    <p class="h4 mb-4">Save Student</p>
+
+    <form action="#" th:action="@{/students/save}" th:object="${student}" method="POST">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First Name" />
+
+        <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last Name" />
+
+        <input type="text" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
+
+        <!--        <input type="text" th:field="*{courses}" class="form-control mb-4 col-4" placeholder="Courses" />-->
+
+        <label class="col-form-label col-sm-4">Games:</label>
+
+        <div class="col-sm-8 text-left">
+            <th:block th:each="book : ${books}">
+                <div>
+                    <input type="checkbox" th:field="*{books}" th:text="${book.title}"
+                           th:value="${book.id}" class="m-2"/>
+                </div>
+            </th:block>
+        </div>
+
+        <button type="submit" class="btn btn-info col-2" >Save</button>
+
+    </form>
+
+    <br><br>
+
+    <a th:href="@{/students/list}" class="btn btn-primary btn-sm mb-3" >
+        Back to Student List
+    </a>
+</div>
+</body>
+
+</html>
