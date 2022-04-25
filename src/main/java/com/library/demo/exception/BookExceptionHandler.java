@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class GameExceptionHandler {
+public class BookExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<GameErrorResponse> handleException(Exception exc){
+    public ResponseEntity<BookErrorResponse> handleException(Exception exc){
 
-        GameErrorResponse error = new GameErrorResponse(HttpStatus.BAD_REQUEST.value(),
+        BookErrorResponse error = new BookErrorResponse(HttpStatus.BAD_REQUEST.value(),
                 exc.getMessage(),System.currentTimeMillis());
 
-        return new ResponseEntity<GameErrorResponse>(error,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<BookErrorResponse>(error,HttpStatus.BAD_REQUEST);
     }
 }

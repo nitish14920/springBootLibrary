@@ -1,6 +1,6 @@
 package com.library.demo.book;
 
-import com.library.demo.exception.GameException;
+import com.library.demo.exception.BookException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,8 @@ import java.util.List;
 public class BookController {
 
     private BookService bookService;
-
+    private static final String BOOK = "book";
+    private static final String BOOKS = "books";
     @Autowired
     public BookController(BookService bookService) {
         this.bookService = bookService;
@@ -35,7 +36,7 @@ public class BookController {
     {
         List<Book> books = bookService.findAll();
 
-        model.addAttribute("books", books);
+        model.addAttribute(BOOKS, books);
 
         return "books/book-list";
     }
@@ -43,18 +44,18 @@ public class BookController {
     @GetMapping("/showFormForAddBook")
     public String showFormForAdd(Model theModel) {
 
-        theModel.addAttribute("book", new Book());
+        theModel.addAttribute(BOOK, new Book());
 
         return "books/book-form";
     }
 
     @PostMapping("/save")
-    public String saveCourse(@Valid @ModelAttribute("book") Book book, BindingResult theBindingResult, Model theModel)
+    public String saveCourse(@Valid @ModelAttribute(BOOK) Book book, BindingResult theBindingResult, Model theModel)
     {
         try {
             if (theBindingResult.hasErrors()) {
 
-                theModel.addAttribute("book", new Book());
+                theModel.addAttribute(BOOK, new Book());
 
                 return "book-form";
             } else {
@@ -64,7 +65,7 @@ public class BookController {
             }
         }
         catch (Exception ex){
-            throw new GameException("Book couldn't be added");
+            throw new BookException("Book couldn't be added");
         }
 
     }
@@ -74,7 +75,7 @@ public class BookController {
 
         Book book = bookService.findById(theId);
 
-        theModel.addAttribute("book", book);
+        theModel.addAttribute(BOOK, book);
 
         return "books/book-form";
 

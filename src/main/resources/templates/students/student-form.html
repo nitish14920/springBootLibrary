@@ -26,14 +26,17 @@
         <input type="hidden" th:field="*{id}" />
 
         <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First Name" />
+        <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" style="color:red"/>
 
         <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last Name" />
+        <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" style="color:red"/>
 
         <input type="text" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
+        <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" style="color:red"/>
 
         <!--        <input type="text" th:field="*{courses}" class="form-control mb-4 col-4" placeholder="Courses" />-->
 
-        <label class="col-form-label col-sm-4">Games:</label>
+        <label class="col-form-label col-sm-4">Books:</label>
 
         <div class="col-sm-8 text-left">
             <th:block th:each="book : ${books}">

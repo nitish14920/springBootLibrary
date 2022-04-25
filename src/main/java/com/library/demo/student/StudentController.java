@@ -21,6 +21,11 @@ public class StudentController {
 
     private BookService bookService;
 
+    private static final String STUDENTS = "students";
+
+    private static final String STUDENT = "student";
+    private static final String BOOKS = "books";
+
     @Autowired
     public StudentController(StudentService studentService, BookService bookService) {
         this.studentService = studentService;
@@ -39,7 +44,7 @@ public class StudentController {
 
         List<Student> students = studentService.findAll();
 
-        theModel.addAttribute("students", students);
+        theModel.addAttribute(STUDENTS, students);
 
         return "students/student-list";
     }
@@ -47,14 +52,17 @@ public class StudentController {
     @GetMapping("/showFormForAddStudent")
     public String showFormForAdd(Model theModel){
 
-        theModel.addAttribute("student",new Student());
+        theModel.addAttribute(STUDENT,new Student());
 
         return "students/student-form";
     }
 
     @PostMapping("/save")
-    public String savePlayer(@Valid @ModelAttribute("student") Student student){
+    public String savePlayer(@Valid @ModelAttribute(STUDENT) Student student,BindingResult bindingResult){
 
+        if(bindingResult.hasErrors()){
+            return "students/student-form";
+        }
         studentService.save(student);
 
         return "redirect:/students/list";
@@ -65,17 +73,17 @@ public class StudentController {
 
         Student student = studentService.findById(id);
 
-        theModel.addAttribute("student", student);
+        theModel.addAttribute(STUDENT, student);
 
         List<Book> books = bookService.findAll();
 
-        theModel.addAttribute("books", books);
+        theModel.addAttribute(BOOKS, books);
 
         return "students/student-form";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("playerId") int id){
+    public String delete(@RequestParam("studentId") int id){
 
         studentService.deleteById(id);
 
@@ -84,11 +92,11 @@ public class StudentController {
     @GetMapping("/showFormToEnroll")
     public String showFormToEnroll(Model theModel){
 
-        theModel.addAttribute("student",new Student());
+        theModel.addAttribute(STUDENT,new Student());
 
         List<Book> books = bookService.findAll();
 
-        theModel.addAttribute("books", books);
+        theModel.addAttribute(BOOKS, books);
 
         return "students/enroll";
     }
@@ -98,9 +106,9 @@ public class StudentController {
 
         if(theBindingResult.hasErrors()){
 
-            theModel.addAttribute("student", student);
+            theModel.addAttribute(STUDENT, student);
             List<Book> books = bookService.findAll();
-            theModel.addAttribute("books", books);
+            theModel.addAttribute(BOOKS, books);
 
             return "students/enroll";
         }

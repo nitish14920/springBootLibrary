@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -22,15 +23,18 @@ public class Student {
     private int id;
 
     @Column(name = "first_name")
-    @NotNull(message = "* is required")
+    @NotEmpty(message = "* is required")
+    @Pattern(regexp = "^[a-zA-Z]*",message = "Enter valid name")
     private String firstName;
 
     @Column(name = "last_name")
-    @NotNull(message = "* is required")
+    @NotEmpty(message = "* is required")
+    @Pattern(regexp = "^[a-zA-Z]*",message = "Enter valid name")
     private String lastName;
 
     @Column(name = "email")
-    @NotNull(message = "* is required")
+    @NotEmpty(message = "* is required")
+    @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",message = "Enter valid email")
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
